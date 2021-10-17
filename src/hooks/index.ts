@@ -1,0 +1,1 @@
+export { getURL, getToken, getIndex } from './GetConfig';
