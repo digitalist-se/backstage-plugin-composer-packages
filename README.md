@@ -37,7 +37,7 @@ To show the it, as an example, add to `packages/app/src/components/catalog/Entit
 import {
   EntityComposerPackagesContent,
   iscomposerPackagesAvailable
-} from '@internal/plugin-composer-packages'
+} from '@digitalist-net-services/plugin-composer-packages'
 ```
 
 ```typescript
