@@ -22,7 +22,7 @@
   "dependencies": {
     "@backstage/core-components": "^0.6.0",
     "@backstage/core-plugin-api": "^0.1.9",
-    "@backstage/theme": "^0.2.9",
+    "@backstage/theme": "^0.2.10",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "4.0.0-alpha.57",
@@ -45,30 +45,10 @@
     "cross-fetch": "^3.0.6"
   },
   "configSchema": {
-    "$schema": "https://backstage.io/schema/config-v1",
-    "title": "@backstage/composer-packages",
-    "type": "object",
-    "properties": {
-      "composerpackages": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "visibility": "frontend"
-          },
-          "apikey": {
-            "type": "string",
-            "visibility": "frontend"
-          },
-          "index": {
-            "type": "string",
-            "visibility": "frontend"
-          }
-        }
-      }
-    }
+    "configSchema": "config.d.ts"
   },
   "files": [
-    "dist"
+    "dist",
+    "config.d.ts"
   ]
 }
