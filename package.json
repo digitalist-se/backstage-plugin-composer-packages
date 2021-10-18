@@ -44,11 +44,9 @@
     "msw": "^0.29.0",
     "cross-fetch": "^3.0.6"
   },
-  "configSchema": {
-    "configSchema": "config.d.ts"
-  },
   "files": [
     "dist",
     "config.d.ts"
-  ]
+  ],
+  "configSchema": "config.d.ts"
 }
