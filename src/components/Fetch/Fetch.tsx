@@ -3,16 +3,16 @@ import { useAsync } from 'react-use';
 import { MeiliSearch, SearchParams } from 'meilisearch';
 import type { Library } from '../Table';
 import { DenseTable } from '../Table';
-import { getURL, getToken, getIndex } from '../../hooks/GetConfig';
+import { useURL, useToken, useIndex } from '../../hooks/GetConfig';
 
 export const Fetch = () => {
   const searchParams: SearchParams = {
     limit: 20000,
   };
 
-  const url: string = getURL()
-  const apikey: string = getToken()
-  const searchindex: string = getIndex()
+  const url: string = useURL()
+  const apikey: string = useToken()
+  const searchindex: string = useIndex()
 
   const { value } = useAsync(async (): Promise<Library[]> => {
     const client = new MeiliSearch({

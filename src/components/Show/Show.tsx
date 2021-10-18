@@ -22,7 +22,7 @@ import { MeiliSearch, SearchParams } from 'meilisearch';
 import { COMPOSER_PACKAGES_ANNOTATION } from '../../annotationHelpers';
 import type { Library } from '../Table';
 import { DenseTable } from '../Table';
-import { getURL, getToken, getIndex } from '../../hooks/GetConfig';
+import { useURL, useToken, useIndex } from '../../hooks/GetConfig';
 
 export const Show = () => {
   const searchParams: SearchParams = {
@@ -32,9 +32,9 @@ export const Show = () => {
   const iscomposerPackagesAvailable = (entity: Entity) =>
     Boolean(entity.metadata.annotations?.[COMPOSER_PACKAGES_ANNOTATION]);
 
-  const url: any = getURL()
-  const apikey: any = getToken()
-  const searchindex: string = getIndex()
+  const url: any = useURL()
+  const apikey: any = useToken()
+  const searchindex: string = useIndex()
 
   const { value } = useAsync(async (): Promise<Library[]> => {
     const client = new MeiliSearch({

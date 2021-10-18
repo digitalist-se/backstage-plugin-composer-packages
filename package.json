@@ -9,6 +9,10 @@
     "main": "dist/index.esm.js",
     "types": "dist/index.d.ts"
   },
+  "keywords": [
+    "backstage",
+    "composer-packages"
+  ],
   "scripts": {
     "build": "backstage-cli plugin:build",
     "start": "backstage-cli plugin:serve",
@@ -20,8 +24,10 @@
     "test": "echo \"No test specified\""
   },
   "dependencies": {
+    "@backstage/catalog-model": "^0.9.4",
     "@backstage/core-components": "^0.6.0",
     "@backstage/core-plugin-api": "^0.1.9",
+    "@backstage/plugin-catalog-react": "^0.6.0",
     "@backstage/theme": "^0.2.10",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",

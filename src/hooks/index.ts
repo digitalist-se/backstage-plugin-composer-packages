@@ -1,1 +1,1 @@
-export { getURL, getToken, getIndex } from './GetConfig';
+export { useURL, useToken, useIndex } from './GetConfig';
