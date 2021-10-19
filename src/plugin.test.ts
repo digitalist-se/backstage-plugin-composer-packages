@@ -1,7 +1,7 @@
-import { composerPackagesPlugin } from './plugin';
+import {  } from './plugin';
 
-describe('composer-packages', () => {
+describe('composerpackages', () => {
   it('should export plugin', () => {
-    expect(composerPackagesPlugin).toBeDefined();
+    expect().toBeDefined();
   });
 });

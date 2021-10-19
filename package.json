@@ -1,13 +1,17 @@
 {
   "name": "@digitalist-net-services/plugin-composer-packages",
   "version": "0.1.4",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public",
     "main": "dist/index.esm.js",
     "types": "dist/index.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalist-se/backstage-plugin-composer-packages"
   },
   "keywords": [
     "backstage",
