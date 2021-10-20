@@ -4,7 +4,6 @@ export { Overview } from './components/Overview';
 export { Show } from './components/Show'
 export { DenseTable } from './components/Table';
 export * from './hooks/GetConfig';
-export type { Library } from './components/Table';
 export {
   composerPackagesPlugin,
   composerPackagesRootRef,
