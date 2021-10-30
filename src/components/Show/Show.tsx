@@ -25,16 +25,22 @@ import { DenseTable } from '../Table';
 import { useURL, useToken, useIndex } from '../../hooks/GetConfig';
 
 export const Show = () => {
-  const searchParams: SearchParams = {
-    limit: 200000,
-  };
+  const { entity } = useEntity();
 
   const iscomposerPackagesAvailable = (entity: Entity) =>
     Boolean(entity.metadata.annotations?.[COMPOSER_PACKAGES_ANNOTATION]);
 
-  const url: any = useURL()
-  const apikey: any = useToken()
-  const searchindex: string = useIndex()
+  const projectId =
+    entity?.metadata.annotations?.[COMPOSER_PACKAGES_ANNOTATION];
+
+  const searchParams: SearchParams = {
+    limit: 200000,
+    filter: ['site =' + projectId + ''],
+  };
+
+  const url: any = useURL();
+  const apikey: any = useToken();
+  const searchindex: string = useIndex();
 
   const { value } = useAsync(async (): Promise<Library[]> => {
     const client = new MeiliSearch({
@@ -45,9 +51,10 @@ export const Show = () => {
     const search = await index.search<Library>('*', searchParams);
     return search.hits;
   }, []);
-  const { entity } = useEntity();
 
   const isListAvailable = entity && iscomposerPackagesAvailable(entity);
   if (isListAvailable) return <DenseTable composerpackages={value || []} />;
-  return <MissingAnnotationEmptyState annotation={COMPOSER_PACKAGES_ANNOTATION} />;
+  return (
+    <MissingAnnotationEmptyState annotation={COMPOSER_PACKAGES_ANNOTATION} />
+  );
 };

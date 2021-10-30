@@ -13,14 +13,13 @@ file.
 ## Config
 
 ```yaml
-
 composerpackages:
   index: 'modules'
   url: 'https://meilisearch.url'
   apikey: '2FXWwAope4nJroSD'
 ```
-This configuration is a must.
 
+This configuration is a must.
 
 ## Getting started
 
@@ -36,8 +35,8 @@ To show the it, as an example, add to `packages/app/src/components/catalog/Entit
 ```typescript
 import {
   EntityComposerPackagesContent,
-  iscomposerPackagesAvailable
-} from '@digitalist-net-services/plugin-composer-packages'
+  iscomposerPackagesAvailable,
+} from '@digitalist-net-services/plugin-composer-packages';
 ```
 
 ```typescript
@@ -56,59 +55,78 @@ const serviceEntityPage = (
 ## Example of creation of the index
 
 First you need an instance of Mielesearch up (doh!), and then create the index.
+(the index is named modules in `app-confi.yaml` so we are using it here)
 
 ```bash
 curl \
-  -X DELETE "${MEILIURL}/indexes/modules" \
-  --header "X-Meili-API-Key: ${MEILIAPIKEY}"
+  --header "X-Meili-API-Key: ${MEILIAPIKEY}" \
+  -X POST "${MEILIURL}/indexes/modules/documents" \
+  -H 'Content-Type: application/json'
 ```
 
-The index is here named modules (in `app-confi.yaml` this equals settings for `index`)
+Set filter attributes:
+
+```bash
+curl \
+  --header "X-Meili-API-Key: ${MEILIAPIKEY}" \
+  -X POST "${MEILIURL}/indexes/modules/settings" \
+  -H 'Content-Type: application/json' \
+  --data-binary '{ "filterableAttributes": [ "name", "version", "type", "site" ]}'
+```
+
+## Update index
+
+MeiliSearch does not yet support updating indexes, just deletion, so to later update, you need to delete it first, and then resend all the documents:
+
+```bash
+curl \
+  --header "X-Meili-API-Key: ${MEILIAPIKEY}" \
+  -X DELETE "${MEILIURL}/indexes/modules"
+```
 
 ## Example usage
 
 ### Gitlab runner.
 
 ```yaml
-
 stages:
-- collect
-- upload
+  - collect
+  - upload
 
 module_collection:
   stage: collect
   rules:
-  - if: $NIGHTLY == "true"
-    when: never
-  - if: $CI_COMMIT_BRANCH == "module_scan"
-    when: always
+    - if: $NIGHTLY == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == "module_scan"
+      when: always
   image:
     name: ozziio/jq:0.1 #or any image with jq and uuidgen
     entrypoint:
-    - ''
+      - ''
   script:
-  - .ci/modules_report.sh > modules.json
+    - .ci/modules_report.sh > modules.json
   artifacts:
     expire_in: 120 min
     paths:
-    - "modules.json"
+      - 'modules.json'
 module_upload:
   stage: upload
   rules:
-  - if: $NIGHTLY == "true"
-    when: never
-  - if: $CI_COMMIT_BRANCH == "module_scan"
-    when: always
+    - if: $NIGHTLY == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == "module_scan"
+      when: always
   image:
     name: curlimages/curl:7.79.1
     entrypoint:
-    - ''
+      - ''
   script:
-  - sh .ci/uplod_modules_report.sh
+    - sh .ci/uplod_modules_report.sh
   artifacts:
     expire_in: 120 min
     paths:
-    - "modules.json"
+      - 'modules.json'
 ```
 
 ```bash

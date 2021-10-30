@@ -10,9 +10,9 @@ export const Fetch = () => {
     limit: 20000,
   };
 
-  const url: string = useURL()
-  const apikey: string = useToken()
-  const searchindex: string = useIndex()
+  const url: string = useURL();
+  const apikey: string = useToken();
+  const searchindex: string = useIndex();
 
   const { value } = useAsync(async (): Promise<Library[]> => {
     const client = new MeiliSearch({
